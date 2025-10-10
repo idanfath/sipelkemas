@@ -47,4 +47,23 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    function complaints() {
+        if ($this->role === 'user') {
+            return $this->hasMany(Complaints::class);
+        }
+        return null;
+    }
+
+    function categories() {
+        if ($this->role === 'officer') {
+            return $this->hasMany(Category::class, 'officer_id');
+        }
+        return null;
+    }
+
+    function comments() {
+        return $this->hasMany(Comments::class);
+    }
+
 }
