@@ -8,6 +8,7 @@ use App\Http\Controllers\Officer\OfficerComplaintController;
 use App\Http\Controllers\User\CommentController;
 use App\Http\Controllers\User\ComplaintController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\ProfilePictureController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
@@ -25,6 +26,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Dashboard route for all authenticated users
     Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+
+    // Profile picture routes
+    Route::post('/profile-picture', [ProfilePictureController::class, 'upload'])->name('profile-picture.upload');
+    Route::delete('/profile-picture', [ProfilePictureController::class, 'destroy'])->name('profile-picture.destroy');
+    Route::get('/profile-picture/{userId?}', [ProfilePictureController::class, 'show'])->name('profile-picture.show');
 
     // User routes
     Route::middleware('role:user')->group(function () {

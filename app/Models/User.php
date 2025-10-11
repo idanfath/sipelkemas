@@ -23,6 +23,7 @@ class User extends Authenticatable
         'email',
         'role',
         'password',
+        'profile_picture',
     ];
 
     /**
@@ -33,6 +34,17 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'profile_picture_url',
+        'default_profile_picture',
+        'profile_picture_or_default',
     ];
 
     /**
@@ -48,22 +60,63 @@ class User extends Authenticatable
         ];
     }
 
-    function complaints() {
+    public function complaints()
+    {
         if ($this->role === 'user') {
             return $this->hasMany(Complaints::class);
         }
+
         return null;
     }
 
-    function categories() {
+    public function categories()
+    {
         if ($this->role === 'officer') {
             return $this->hasMany(Category::class, 'user_id');
         }
+
         return null;
     }
 
-    function comments() {
+    public function comments()
+    {
         return $this->hasMany(Comments::class);
     }
 
+    /**
+     * Get the profile picture URL.
+     *
+     * @return string|null
+     */
+    public function getProfilePictureUrlAttribute()
+    {
+        if ($this->profile_picture) {
+            return asset('storage/'.$this->profile_picture);
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the default profile picture URL.
+     *
+     * @return string
+     */
+    public function getDefaultProfilePictureAttribute()
+    {
+        // Generate a placeholder based on initials
+        $initials = substr($this->name, 0, 1);
+
+        return 'https://ui-avatars.com/api/?name='.urlencode($this->name).'&color=7F9CF5&background=EBF4FF';
+    }
+
+    /**
+     * Get the profile picture URL or default.
+     *
+     * @return string
+     */
+    public function getProfilePictureOrDefaultAttribute()
+    {
+        return $this->profile_picture_url ?? $this->default_profile_picture;
+    }
 }

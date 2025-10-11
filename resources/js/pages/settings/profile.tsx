@@ -7,6 +7,7 @@ import { Form, Head, Link, usePage } from '@inertiajs/react';
 import DeleteUser from '@/components/delete-user';
 import HeadingSmall from '@/components/heading-small';
 import InputError from '@/components/input-error';
+import ProfilePictureUpload from '@/components/profile-picture-upload';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -36,6 +37,9 @@ export default function Profile({
 
             <SettingsLayout>
                 <div className="space-y-6">
+                    {/* Profile Picture Section */}
+                    <ProfilePictureUpload currentUser={auth.user} />
+
                     <HeadingSmall
                         title="Profile information"
                         description="Update your name and email address"

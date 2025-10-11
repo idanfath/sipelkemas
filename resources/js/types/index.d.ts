@@ -30,12 +30,21 @@ export interface SharedData {
     [key: string]: unknown;
 }
 
+export interface Media {
+    path: string;
+    type: string;
+}
+
 export interface User {
     id: number;
     name: string;
     email: string;
     role: 'admin' | 'officer' | 'user';
     avatar?: string;
+    profile_picture?: string;
+    profile_picture_url?: string;
+    default_profile_picture?: string;
+    profile_picture_or_default?: string;
     email_verified_at: string | null;
     two_factor_enabled?: boolean;
     created_at: string;
