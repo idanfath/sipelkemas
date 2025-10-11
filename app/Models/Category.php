@@ -13,7 +13,7 @@ class Category extends Model
     protected $guarded = [];
 
     function officer() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     function complaints() {

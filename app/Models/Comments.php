@@ -12,8 +12,12 @@ class Comments extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'media' => 'array',
+    ];
+
     function complaint() {
-        return $this->belongsTo(Complaints::class);
+        return $this->belongsTo(Complaints::class, 'complaint_id');
     }
 
     function user() {

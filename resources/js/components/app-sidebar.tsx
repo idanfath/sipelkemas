@@ -1,3 +1,6 @@
+
+// CONDITIONAL SIDEBAR
+
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -10,10 +13,10 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard } from '@/routes';
-import { type NavItem } from '@/types';
-import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
+import { adminCategories, adminComplaints, adminUsers, createComplaint, dashboard, officerCategories, officerComplaints, userComplaints } from '@/routes';
+import { SharedData, type NavItem } from '@/types';
+import { Link, usePage } from '@inertiajs/react';
+import { BookOpen, Folder, LayoutGrid, User } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -24,8 +27,49 @@ const mainNavItems: NavItem[] = [
     },
 ];
 
+const RoleNavItems: {
+    [key: string]: NavItem[]
+} = {
+    admin: [
+        {
+            title: 'Manajemen Pengguna',
+            href: adminUsers(),
+            icon: User,
+        },
+        {
+            title: 'Manajemen Kategori',
+            href: adminCategories(),
+            icon: Folder,
+        },
+        {
+            title: 'Manajemen Laporan',
+            href: adminComplaints(),
+            icon: BookOpen,
+        }
+    ],
+    officer: [
+        {
+            title: 'Daftar Pengaduan',
+            href: officerComplaints(),
+            icon: BookOpen,
+        },
+        {
+            title: 'Kategori',
+            href: officerCategories(),
+            icon: Folder,
+        },
+    ],
+    user: [
+        {
+            title: 'Daftar Pengaduan',
+            href: userComplaints(),
+            icon: Folder,
+        },
+    ],
+};
 
 export function AppSidebar() {
+    const { auth } = usePage<SharedData>().props;
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -37,11 +81,12 @@ export function AppSidebar() {
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
+
                 </SidebarMenu>
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={[...mainNavItems, ...RoleNavItems[auth.user.role]]} />
             </SidebarContent>
 
             <SidebarFooter>

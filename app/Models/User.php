@@ -57,7 +57,7 @@ class User extends Authenticatable
 
     function categories() {
         if ($this->role === 'officer') {
-            return $this->hasMany(Category::class, 'officer_id');
+            return $this->hasMany(Category::class, 'user_id');
         }
         return null;
     }

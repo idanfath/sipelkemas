@@ -13,12 +13,15 @@ class RoleMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, string ...$roles): Response
     {
-        $user = $request->user();
-        $roles = is_array($request->route('role')) ? $request->route('role') : explode('|', $request->route('role'));
-        if (!$user || !$user->hasAnyRole($roles)) {
-            abort(403);
+        if (!$request->user() || !in_array($request->user()->role, $roles)) {
+            if ($request->expectsJson()) {
+                return response()->json(['error' => 'Unauthorized'], 403);
+            }
+
+            return redirect()->route('dashboard')
+                            ->with('error', 'Anda tidak memiliki akses ke halaman tersebut');
         }
         return $next($request);
     }

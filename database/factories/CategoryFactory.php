@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,18 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
+        // Get a random officer user
+        $officerUser = User::where('role', 'officer')->inRandomOrder()->first();
+
+        // If no officer users exist, create one
+        if (!$officerUser) {
+            $officerUser = User::factory()->officer()->create();
+        }
+
         return [
-            //
+            'name' => fake()->unique()->words(random_int(1, 3), true),
+            'description' => fake()->sentence(random_int(5, 15)),
+            'user_id' => $officerUser->id,
         ];
     }
 }

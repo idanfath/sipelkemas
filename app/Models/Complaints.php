@@ -12,15 +12,22 @@ class Complaints extends Model
 
     protected $guarded = [];
 
-    function user() {
+    protected $casts = [
+        'media' => 'array',
+    ];
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    function category() {
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
 
-    function comments() {
-        return $this->hasMany(Comments::class);
+    public function comments()
+    {
+        return $this->hasMany(Comments::class, 'complaint_id');
     }
 }

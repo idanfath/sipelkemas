@@ -16,10 +16,10 @@ interface ResetPasswordProps {
 export default function ResetPassword({ token, email }: ResetPasswordProps) {
     return (
         <AuthLayout
-            title="Reset password"
-            description="Please enter your new password below"
+            title="Reset Kata Sandi"
+            description="Silakan masukkan kata sandi baru Anda di bawah ini"
         >
-            <Head title="Reset password" />
+            <Head title="Reset Kata Sandi" />
 
             <Form
                 {...NewPasswordController.store.form()}
@@ -29,7 +29,7 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
                 {({ processing, errors }) => (
                     <div className="grid gap-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="email">Email</Label>
+                            <Label htmlFor="email">Alamat Email</Label>
                             <Input
                                 id="email"
                                 type="email"
@@ -46,7 +46,7 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="password">Password</Label>
+                            <Label htmlFor="password">Kata Sandi Baru</Label>
                             <Input
                                 id="password"
                                 type="password"
@@ -61,7 +61,7 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
 
                         <div className="grid gap-2">
                             <Label htmlFor="password_confirmation">
-                                Confirm password
+                                Konfirmasi Kata Sandi Baru
                             </Label>
                             <Input
                                 id="password_confirmation"
@@ -86,7 +86,7 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
                             {processing && (
                                 <LoaderCircle className="h-4 w-4 animate-spin" />
                             )}
-                            Reset password
+                            Simpan Kata Sandi Baru
                         </Button>
                     </div>
                 )}
