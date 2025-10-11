@@ -1,56 +1,166 @@
-Sistem Pelayanan Keluhan Mahasiswa (Sipelkemas)
+# SIPELKEMAS
+**Sistem Pelayanan Keluhan Mahasiswa**
 
-Sipelkemas adalah sebuah aplikasi berbasis web yang dirancang untuk memudahkan mahasiswa dalam menyampaikan keluhan atau masukan terkait layanan kampus. Aplikasi ini bertujuan untuk meningkatkan kualitas pelayanan di lingkungan kampus dengan menyediakan platform yang mudah diakses oleh mahasiswa.
+Platform digital untuk pengelolaan keluhan dan masukan mahasiswa dalam meningkatkan kualitas layanan kampus.
 
-Fitur Utama
-1. **Pendaftaran dan Login**: Mahasiswa dapat mendaftar dan masuk ke dalam sistem.
-    - Role officer tidak bisa melakukan pendaftaran, hanya admin yang bisa menambahkan officer.
-    - Admin dapat menambahkan, mengedit, dan menghapus akun officer dan user.
-2. **Pengajuan Keluhan**: Mahasiswa dapat mengajukan keluhan melalui sistem dengan mengisi formulir yang telah disediakan.
-    - Mahasiswa dapat mengunggah bukti pendukung berupa gambar atau dokumen.
-    - Bisa memilih anonim
-    - Bisa melihat status keluhan yang diajukan.
-3. **Manajemen Keluhan**: Officer dapat melihat, menanggapi, dan mengelola keluhan yang masuk.
-    - Officer dapat mengubah status keluhan (misalnya: menunggu, diproses, selesai)
-    - Officer dapat memberikan tanggapan atau solusi terhadap keluhan yang diajukan (fitur comments)
-    - Officer meng-manage kategori keluhan.
-4. **Dashboard Admin**: Admin memiliki akses penuh untuk mengelola seluruh sistem, termasuk manajemen user dan laporan keluhan.
+## 📋 Deskripsi Proyek
 
-Role Pengguna
-1. **User** (mahasiswa): Dapat mengajukan keluhan, melihat status keluhan, dan mengedit profil.
-2. **Officer**: Bertanggung jawab untuk menanggapi dan mengelola keluhan yang masuk pada kategori yang ditugaskan.
-3. **Admin**: Memiliki kontrol penuh atas sistem, termasuk manajemen user dan pengaturan sistem.
+SIPELKEMAS merupakan sistem manajemen keluhan berbasis web yang memfasilitasi komunikasi dua arah antara mahasiswa dengan pihak kampus. Sistem ini dirancang untuk mempercepat proses penanganan keluhan dan meningkatkan transparansi dalam pelayanan kampus.
 
-Pages Khusus
-1. User
-    - Pengajuan Keluhan
-    - List Keluhan
-        - Di paling atas bisa pilih kategori
-        - Pada list yang belum ditanggapi, bisa menghapus keluhan
-        - Pada daftarlist, di atas adlah keluhan yang chat terakhirnya dari officer, dan di bawahnya adalah keluhan yang belum ditanggapi (komen terakhir dari user).
-    - Detail Keluhan
-        - Bisa melihat detail keluhan, termasuk tanggapan dari officer.
-        - Bisa menambahkan komentar (chat) pada keluhan yang diajukan.
-        pada detail keluhan, jika statusnya "selesai", user tidak bisa menambahkan komentar lagi.
-        komentar bisa dalam bentuk quoting, yakni chat biasa, namun meng-embed chat lain di atasnya.
-2. Officer
-    - List Keluhan
-        - Bisa memilih kategori keluhan yang ditangani.
-        - Bisa melihat semua keluhan yang masuk pada kategori tersebut.
-        - Bisa mengubah status keluhan.
-    - Detail Keluhan
-        - Bisa melihat detail keluhan, termasuk komentar dari user.
-        - Bisa menambahkan komentar (chat) pada keluhan yang ditangani.
-        pada detail keluhan, jika statusnya "selesai", officer tidak bisa menambahkan komentar lagi.
-        komentar bisa dalam bentuk quoting, yakni chat biasa, namun meng-embed chat lain di atas
-3. Admin
-    - Manajemen User
-        - Bisa menambahkan, mengedit, dan menghapus akun officer dan user.
-    - Dashboard
-        - Menampilkan statistik keluhan, seperti jumlah keluhan masuk, keluhan yang sedang diproses, dan keluhan yang telah selesai.
-    - Laporan Keluhan
-        - Bisa melihat laporan keluhan berdasarkan kategori, status, dan periode waktu tertentu.
-    - Manajemen Kategori
-        - Bisa menambahkan, mengedit, dan menghapus kategori keluhan.
-    - Full Access
-        - Admin memiliki akses penuh ke semua fitur dan halaman dalam sistem.
+## ⚡ Fitur Utama
+
+### 🎓 Untuk Mahasiswa
+- **Pengajuan Keluhan Digital**: Form pengajuan dengan dukungan upload media
+- **Tracking Status Real-time**: Pantau progress penanganan keluhan
+- **Mode Anonim**: Opsi pengajuan keluhan tanpa identitas
+- **Sistem Komunikasi**: Chat interaktif dengan petugas terkait
+
+### 👨‍💼 Untuk Officer
+- **Dashboard Keluhan**: Manajemen keluhan berdasarkan kategori tugas
+- **Sistem Respon**: Tools untuk memberikan tanggapan dan solusi
+- **Update Status**: Kontrol penuh atas alur penanganan keluhan
+- **Manajemen Kategori**: Pengaturan bidang tanggung jawab
+
+### 🔐 Untuk Administrator
+- **User Management**: Kelola akun mahasiswa dan officer
+- **Analytics Dashboard**: Statistik dan laporan komprehensif
+- **System Configuration**: Pengaturan kategori dan hak akses
+- **Data Export**: Ekspor laporan dalam format CSV
+
+## 👥 Hierarki Pengguna
+
+| Role | Akses | Tanggung Jawab |
+|------|-------|---------------|
+| **Mahasiswa** | Pengajuan & tracking keluhan | Menyampaikan keluhan dan berkomunikasi dengan officer |
+| **Officer** | Kategori yang ditugaskan | Menangani dan merespon keluhan sesuai bidang tugas |
+| **Admin** | Full system access | Mengelola seluruh sistem dan monitoring kinerja |
+
+## 🛠️ Tech Stack
+
+- **Backend**: Laravel 11, PHP 8.2+
+- **Frontend**: React + TypeScript, Inertia.js
+- **Database**: MySQL/PostgreSQL
+- **Styling**: Tailwind CSS
+- **Authentication**: Laravel Fortify
+- **File Storage**: Laravel Storage System
+
+## 🚀 Installation
+
+### Prerequisites
+- PHP 8.2 atau lebih tinggi
+- Composer
+- Node.js & npm/yarn
+- MySQL/PostgreSQL
+
+### Setup Steps
+
+1. **Clone Repository**
+   ```bash
+   git clone https://github.com/idanfath/sipelkemas.git
+   cd sipelkemas
+   ```
+
+2. **Install Dependencies**
+   ```bash
+   composer install
+   npm install
+   ```
+
+3. **Environment Configuration**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+4. **Database Setup**
+   ```bash
+   php artisan migrate
+   php artisan db:seed
+   ```
+
+5. **Storage Link**
+   ```bash
+   php artisan storage:link
+   ```
+
+6. **Development Server**
+   ```bash
+   php artisan serve
+   npm run dev
+   ```
+
+## 📱 Workflow Sistem
+
+### Alur Pengajuan Keluhan
+1. **Mahasiswa** submit keluhan melalui form digital
+2. **Sistem** assign keluhan ke officer berdasarkan kategori
+3. **Officer** review dan berikan respon/solusi
+4. **Mahasiswa** dapat memberikan feedback tambahan
+5. **Officer** update status hingga resolved
+
+### Status Keluhan
+- 🟡 **Menunggu**: Keluhan baru masuk, belum ditangani
+- 🔵 **Sedang Diproses**: Officer sudah mulai menangani
+- 🟢 **Selesai**: Keluhan telah diselesaikan
+
+## 📁 Struktur Fitur per Role
+
+<details>
+<summary><strong>👨‍🎓 Mahasiswa</strong></summary>
+
+- **Dashboard**: Overview keluhan dan statistik personal
+- **Ajukan Keluhan**: Form submission dengan kategori dan media
+- **Daftar Keluhan**: List dengan filter kategori dan status
+- **Detail & Chat**: Komunikasi real-time dengan officer
+- **Profile**: Manajemen data personal
+
+</details>
+
+<details>
+<summary><strong>👨‍💼 Officer</strong></summary>
+
+- **Dashboard**: Statistik keluhan pada kategori tugas
+- **Keluhan Masuk**: Queue keluhan yang perlu ditangani
+- **Detail & Respon**: Tools untuk memberikan solusi
+- **Manajemen Status**: Update progress penanganan
+- **Kategori**: Setting bidang tanggung jawab
+
+</details>
+
+<details>
+<summary><strong>🔐 Administrator</strong></summary>
+
+- **Analytics Dashboard**: Metrics dan KPI sistem
+- **User Management**: CRUD mahasiswa dan officer
+- **Laporan**: Export data dengan filter custom
+- **Kategori**: Setup dan assignment ke officer
+- **System Settings**: Konfigurasi global
+
+</details>
+
+## 🔒 Keamanan & Privasi
+
+- Autentikasi multi-level dengan Laravel Fortify
+- Otorisasi berbasis role dan permission
+- Enkripsi data sensitif mahasiswa
+- Audit trail untuk tracking aktivitas
+- Option anonymous reporting untuk kasus sensitif
+
+## 📊 Monitoring & Analytics
+
+Sistem dilengkapi dengan dashboard analytics yang menyediakan:
+- Response time rata-rata penanganan keluhan
+- Kategori keluhan terbanyak
+- Tingkat kepuasan mahasiswa
+- Performance officer berdasarkan resolution rate
+
+## 🤝 Contributing
+
+1. Fork repository
+2. Create feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open Pull Request
+
+---
+*SIPELKEMAS - Membangun komunikasi yang lebih baik antara mahasiswa dan institusi pendidikan*
