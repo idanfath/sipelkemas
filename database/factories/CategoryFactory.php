@@ -17,18 +17,20 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
-        // Get a random officer user
-        $officerUser = User::where('role', 'officer')->inRandomOrder()->first();
-
-        // If no officer users exist, create one
-        if (!$officerUser) {
-            $officerUser = User::factory()->officer()->create();
-        }
-
         return [
-            'name' => fake()->unique()->words(random_int(1, 3), true),
-            'description' => fake()->sentence(random_int(5, 15)),
-            'user_id' => $officerUser->id,
+            'name' => fake()->unique()->words(2, true),
+            'description' => fake()->sentence(8),
+            'user_id' => User::factory()->officer(),
         ];
+    }
+
+    /**
+     * Assign a specific officer to the category.
+     */
+    public function assignToOfficer(User $officer): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'user_id' => $officer->id,
+        ]);
     }
 }

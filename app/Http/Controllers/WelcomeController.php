@@ -41,12 +41,16 @@ class WelcomeController extends Controller
             });
 
         // Get categories with complaint counts
-        $categoriesWithCounts = Category::withCount('complaints')->get()->map(function ($category) {
+        $categoriesWithCounts = Category::withCount('complaints')
+            ->orderBy('complaints_count', 'desc')
+            ->limit(16)
+            ->get()
+            ->map(function ($category) {
             return [
                 'name' => $category->name,
                 'count' => $category->complaints_count,
             ];
-        });
+            });
 
         $stats = [
             'totalComplaints' => $totalComplaints,
