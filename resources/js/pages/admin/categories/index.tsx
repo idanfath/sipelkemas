@@ -111,7 +111,7 @@ export default function CategoryIndex({ categories, officers }: CategoriesIndexP
 
     return (
         <AppLayout>
-            <Head title="Category Management" />
+            <Head title="Manajemen Kategori" />
 
             <div className="p-4">
                 <div className="flex justify-between items-center mb-4">
@@ -121,7 +121,7 @@ export default function CategoryIndex({ categories, officers }: CategoriesIndexP
                         className="flex items-center gap-2"
                     >
                         <Plus className="h-4 w-4" />
-                        Add Category
+                        Tambah Kategori
                     </Button>
                 </div>
 
@@ -130,10 +130,10 @@ export default function CategoryIndex({ categories, officers }: CategoriesIndexP
                         <table className="w-full text-sm">
                             <thead className="bg-gray-50 dark:bg-gray-800">
                                 <tr>
-                                    <th className="px-4 py-3 text-left">Name</th>
-                                    <th className="px-4 py-3 text-left">Description</th>
-                                    <th className="px-4 py-3 text-left">Assigned Officer</th>
-                                    <th className="px-4 py-3 text-right">Actions</th>
+                                    <th className="px-4 py-3 text-left">Nama</th>
+                                    <th className="px-4 py-3 text-left">Deskripsi</th>
+                                    <th className="px-4 py-3 text-left">Petugas yang Ditugaskan</th>
+                                    <th className="px-4 py-3 text-right">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -141,10 +141,10 @@ export default function CategoryIndex({ categories, officers }: CategoriesIndexP
                                     <tr key={category.id} className="hover:bg-gray-50 dark:hover:bg-gray-800">
                                         <td className="px-4 py-3 font-medium">{category.name}</td>
                                         <td className="px-4 py-3">
-                                            {category.description || <span className="text-gray-400 italic">No description</span>}
+                                            {category.description || <span className="text-gray-400 italic">Tidak ada deskripsi</span>}
                                         </td>
                                         <td className="px-4 py-3">
-                                            {category.officer ? category.officer.name : <span className="text-gray-400 italic">No officer assigned</span>}
+                                            {category.officer ? category.officer.name : <span className="text-gray-400 italic">Tidak ada petugas ditugaskan</span>}
                                         </td>
                                         <td className="px-4 py-3 whitespace-nowrap text-right">
                                             <div className="flex justify-end gap-2">

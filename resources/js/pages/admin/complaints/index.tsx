@@ -90,7 +90,7 @@ export default function Reports({ complaints, categories, filters }: ReportsProp
 
     function exportToCSV() {
         // Create a CSV content
-        const headers = ['ID', 'Title', 'Category', 'Status', 'Submitted By', 'Date'];
+        const headers = ['ID', 'Judul', 'Kategori', 'Status', 'Dikirim Oleh', 'Tanggal'];
 
         const csvContent = [
             headers.join(','),
@@ -132,11 +132,11 @@ export default function Reports({ complaints, categories, filters }: ReportsProp
     function formatStatus(status: string) {
         switch (status) {
             case 'pending':
-                return 'Pending';
+                return 'Menunggu';
             case 'in_progress':
-                return 'In Progress';
+                return 'Sedang Diproses';
             case 'resolved':
-                return 'Resolved';
+                return 'Selesai';
             default:
                 return status;
         }
@@ -144,30 +144,30 @@ export default function Reports({ complaints, categories, filters }: ReportsProp
 
     return (
         <AppLayout>
-            <Head title="Complaints Reports" />
+            <Head title="Laporan Keluhan" />
 
             <div className="p-4">
                 <div className="flex justify-between items-center mb-6">
-                    <h1 className="text-3xl font-bold">Complaints Reports</h1>
+                    <h1 className="text-3xl font-bold">Laporan Keluhan</h1>
                     <Button
                         onClick={exportToCSV}
                         className="flex items-center gap-2"
                     >
                         <Download className="h-4 w-4" />
-                        Export to CSV
+                        Ekspor ke CSV
                     </Button>
                 </div>
 
                 <div className="py-4">
                     <h2 className="text-lg font-medium mb-4 flex items-center gap-2">
                         <Filter className="h-5 w-5" />
-                        Filter Options
+                        Opsi Filter
                     </h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <div>
                             <label className="block text-sm font-medium mb-1" htmlFor="start_date">
-                                Start Date
+                                Tanggal Mulai
                             </label>
                             <div className="relative">
                                 <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -184,7 +184,7 @@ export default function Reports({ complaints, categories, filters }: ReportsProp
 
                         <div>
                             <label className="block text-sm font-medium mb-1" htmlFor="end_date">
-                                End Date
+                                Tanggal Berakhir
                             </label>
                             <div className="relative">
                                 <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -201,7 +201,7 @@ export default function Reports({ complaints, categories, filters }: ReportsProp
 
                         <div>
                             <label className="block text-sm font-medium mb-1" htmlFor="category_id">
-                                Category
+                                Kategori
                             </label>
                             <select
                                 id="category_id"
@@ -210,7 +210,7 @@ export default function Reports({ complaints, categories, filters }: ReportsProp
                                 onChange={handleFilterChange}
                                 className="px-4 py-2 w-full border rounded-md"
                             >
-                                <option value="">All Categories</option>
+                                <option value="">Semua Kategori</option>
                                 {categories.map((category) => (
                                     <option key={category.id} value={category.id}>
                                         {category.name}
@@ -230,10 +230,10 @@ export default function Reports({ complaints, categories, filters }: ReportsProp
                                 onChange={handleFilterChange}
                                 className="px-4 py-2 w-full border rounded-md"
                             >
-                                <option value="">All Statuses</option>
-                                <option value="pending">Pending</option>
-                                <option value="in_progress">In Progress</option>
-                                <option value="resolved">Resolved</option>
+                                <option value="">Semua Status</option>
+                                <option value="pending">Menunggu</option>
+                                <option value="in_progress">Sedang Diproses</option>
+                                <option value="resolved">Selesai</option>
                             </select>
                         </div>
                     </div>
@@ -244,13 +244,13 @@ export default function Reports({ complaints, categories, filters }: ReportsProp
                             variant="outline"
                             onClick={resetFilters}
                         >
-                            Reset Filters
+                            Reset Filter
                         </Button>
                         <Button
                             type="button"
                             onClick={applyFilters}
                         >
-                            Apply Filters
+                            Terapkan Filter
                         </Button>
                     </div>
                 </div>
@@ -261,11 +261,12 @@ export default function Reports({ complaints, categories, filters }: ReportsProp
                             <thead className="bg-gray-50 dark:bg-gray-800">
                                 <tr>
                                     <th className="px-4 py-3 text-left">ID</th>
-                                    <th className="px-4 py-3 text-left">Title</th>
-                                    <th className="px-4 py-3 text-left">Category</th>
+                                    <th className="px-4 py-3 text-left">Judul</th>
+                                    <th className="px-4 py-3 text-left">Kategori</th>
                                     <th className="px-4 py-3 text-left">Status</th>
-                                    <th className="px-4 py-3 text-left">Submitted By</th>
-                                    <th className="px-4 py-3 text-left">Date</th>
+                                    <th className="px-4 py-3 text-left">Dikirim Oleh</th>
+                                    <th className="px-4 py-3 text-left">Tanggal</th>
+                                    <th className="px-4 py-3 text-left">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -285,6 +286,17 @@ export default function Reports({ complaints, categories, filters }: ReportsProp
                                         <td className="px-4 py-3 whitespace-nowrap">
                                             {format(new Date(complaint.created_at), 'yyyy-MM-dd')}
                                         </td>
+                                        <td className="px-4 py-3 whitespace-nowrap">
+                                            <Button
+                                                variant="outline"
+                                                size="sm"
+                                                onClick={() => router.get(`/complaints/${complaint.id}`)}
+                                                className="flex items-center gap-2 cursor-pointer"
+                                            >
+                                                <Eye className="h-4 w-4" />
+                                                Lihat
+                                            </Button>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -292,14 +304,14 @@ export default function Reports({ complaints, categories, filters }: ReportsProp
                     </div>
                     {complaints.data.length === 0 && (
                         <div className="text-center py-6 text-gray-500">
-                            No complaints found.
+                            Tidak ada keluhan ditemukan.
                         </div>
                     )}
 
                     {/* Pagination */}
                     <div className="px-4 py-3 flex items-center justify-between border-t">
                         <div className="text-sm text-gray-500">
-                            Showing <span className="font-medium">{complaints.data.length}</span> of <span className="font-medium">{complaints.total}</span> complaints
+                            Menampilkan <span className="font-medium">{complaints.data.length}</span> dari <span className="font-medium">{complaints.total}</span> keluhan
                         </div>
                         {complaints.links && complaints.links.length > 3 && (
                             <div className="flex gap-1">

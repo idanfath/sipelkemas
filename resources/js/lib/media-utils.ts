@@ -13,8 +13,13 @@ export function normalizeMedia(media: any): Media {
                 media.toLowerCase().includes('.webp') ? 'image' : 'file'
         };
     }
+
     // New format: object with path and type
-    return media;
+    // Ensure the object has the required properties
+    return {
+        path: media?.filename || media?.path || '',
+        type: media?.type || 'file'
+    };
 }
 
 // Helper function to get media array from various formats
@@ -39,6 +44,11 @@ export function getMediaArray(media: any): Media[] {
 
 // Helper function to generate secure media URL
 export function getSecureMediaUrl(mediaPath: string): string {
+    // Check if mediaPath is defined and is a string
+    if (!mediaPath || typeof mediaPath !== 'string') {
+        return '';
+    }
+
     if (mediaPath.startsWith('complaint_media/')) {
         const filename = mediaPath.replace('complaint_media/', '');
         return `/secure/complaint-media/${filename}`;

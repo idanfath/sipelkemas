@@ -42,14 +42,14 @@ export default function UserIndex({ users, filters }: UserIndexProps) {
     }
 
     function handleDelete(userId: number) {
-        if (confirm('Are you sure you want to delete this user?')) {
+        if (confirm('Apakah Anda yakin ingin menghapus pengguna ini?')) {
             router.delete(`/admin/users/${userId}`);
         }
     }
 
     return (
         <AppLayout>
-            <Head title="User Management" />
+            <Head title="Manajemen Pengguna" />
 
             <div className="p-4">
                 <div className="flex justify-between items-center ">
@@ -57,7 +57,7 @@ export default function UserIndex({ users, filters }: UserIndexProps) {
                     <Link href="/admin/users/create">
                         <Button className="flex items-center gap-2">
                             <UserPlus className="h-4 w-4" />
-                            Add User
+                            Tambah Pengguna
                         </Button>
                     </Link>
                 </div>
@@ -72,11 +72,11 @@ export default function UserIndex({ users, filters }: UserIndexProps) {
                                         type="text"
                                         value={search}
                                         onChange={(e) => setSearch(e.target.value)}
-                                        placeholder="Search users..."
+                                        placeholder="Cari pengguna..."
                                         className="pl-10 pr-4 py-2 w-full border rounded-md"
                                     />
                                 </div>
-                                <Button type="submit">Search</Button>
+                                <Button type="submit">Cari</Button>
                             </form>
                         </div>
                         <div className="flex items-center gap-2 min-w-[200px]">
@@ -86,10 +86,10 @@ export default function UserIndex({ users, filters }: UserIndexProps) {
                                 onChange={handleRoleChange}
                                 className="border rounded-md p-2 w-full"
                             >
-                                <option value="">All Roles</option>
+                                <option value="">Semua Peran</option>
                                 <option value="admin">Admin</option>
-                                <option value="officer">Officer</option>
-                                <option value="user">User</option>
+                                <option value="officer">Petugas</option>
+                                <option value="user">Pengguna</option>
                             </select>
                         </div>
                     </div>
@@ -100,11 +100,11 @@ export default function UserIndex({ users, filters }: UserIndexProps) {
                         <table className="w-full text-sm">
                             <thead className="bg-gray-50 dark:bg-gray-800">
                                 <tr>
-                                    <th className="px-4 py-3 text-left">Name</th>
+                                    <th className="px-4 py-3 text-left">Nama</th>
                                     <th className="px-4 py-3 text-left">Email</th>
-                                    <th className="px-4 py-3 text-left">Role</th>
-                                    <th className="px-4 py-3 text-left">Created At</th>
-                                    <th className="px-4 py-3 text-right">Actions</th>
+                                    <th className="px-4 py-3 text-left">Peran</th>
+                                    <th className="px-4 py-3 text-left">Dibuat Pada</th>
+                                    <th className="px-4 py-3 text-right">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -144,14 +144,14 @@ export default function UserIndex({ users, filters }: UserIndexProps) {
                     </div>
                     {users.data.length === 0 && (
                         <div className="text-center py-6 text-gray-500">
-                            No users found.
+                            Tidak ada pengguna ditemukan.
                         </div>
                     )}
 
                     {/* Pagination */}
                     <div className="px-4 py-3 flex items-center justify-between border-t">
                         <div className="text-sm text-gray-500">
-                            Showing <span className="font-medium">{users.data.length}</span> of <span className="font-medium">{users.total}</span> users
+                            Menampilkan <span className="font-medium">{users.data.length}</span> dari <span className="font-medium">{users.total}</span> pengguna
                         </div>
                         {users.links && users.links.length > 3 && (
                             <div className="flex gap-1">
